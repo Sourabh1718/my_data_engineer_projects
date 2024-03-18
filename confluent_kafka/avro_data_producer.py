@@ -37,11 +37,11 @@ def delivery_report(err, msg):
 
 # Define Kafka configuration
 kafka_config = {
-    'bootstrap.servers': 'lkc-rv2kv0.us-west1.gcp.confluent.cloud:9092',
+    'bootstrap.servers': 'pkc-lgk0v.us-west1.gcp.confluent.cloud:9092',
     'sasl.mechanisms': 'PLAIN',
     'security.protocol': 'SASL_SSL',
-    'sasl.username': '7GLVPDVIXVO4VP4D',
-    'sasl.password': 'rIu95RIXT84gkfL+qM5wjaLgWjoLar02cgjSZBYhJ0abGF7ytko5WXDXseu+2FN3'
+    'sasl.username': '47DX5QDUDUGMZW5Q',
+    'sasl.password': 'hC6L+FWDFtdgADd5uvOVMWwYtKoR+Mq/vs9urGCaiXa15BqF02DZzoSPxWT3nXJK'
 }
 
 # Create a Schema Registry client
