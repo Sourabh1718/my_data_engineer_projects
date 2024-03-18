@@ -78,6 +78,7 @@ df = pd.read_csv('retail_data.csv')
 df = df.fillna('null')
 print(df.head())
 
+count=0
 # Iterate over DataFrame rows and produce to Kafka
 for index, row in df.iterrows():
     # Create a dictionary from the row values
@@ -86,6 +87,6 @@ for index, row in df.iterrows():
     # Produce to Kafka
     producer.produce(topic='retail_data', key=str(index), value=value, on_delivery=delivery_report)
     producer.flush()
-    break
+    #break
 
 print("Data successfully published to Kafka")
