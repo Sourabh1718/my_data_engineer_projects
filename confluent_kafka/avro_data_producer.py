@@ -32,27 +32,28 @@ def delivery_report(err, msg):
     if err is not None:
         print("Delivery failed for User record {}: {}".format(msg.key(), err))
         return
-    print('User record {} successfully produced to {} [{}] at offset {}'.format(
+    print('Record {} successfully produced to {} [{}] at offset {}'.format(
         msg.key(), msg.topic(), msg.partition(), msg.offset()))
 
 # Define Kafka configuration
 kafka_config = {
-    'bootstrap.servers': 'pkc-41p56.asia-south1.gcp.confluent.cloud:9092',
+    'bootstrap.servers': 'lkc-rv2kv0.us-west1.gcp.confluent.cloud:9092',
     'sasl.mechanisms': 'PLAIN',
     'security.protocol': 'SASL_SSL',
-    'sasl.username': 'Y35XAUWJH4K6IAB3',
-    'sasl.password': 'LY180mfR+XUbYUPyM5g93i0jPmnPh0ZZGuhv3FhtMaL2lauqQWD3utJNcQKDOvr4'
+    'sasl.username': '7GLVPDVIXVO4VP4D',
+    'sasl.password': 'rIu95RIXT84gkfL+qM5wjaLgWjoLar02cgjSZBYhJ0abGF7ytko5WXDXseu+2FN3'
 }
 
 # Create a Schema Registry client
 schema_registry_client = SchemaRegistryClient({
-  'url': 'https://psrc-em82q.us-east-2.aws.confluent.cloud',
-  'basic.auth.user.info': '{}:{}'.format('TGDCYTCLBR46NMPB', 'CcuDlU08lL9LPD/od7k5mverQJegGnnrXvzhCA5x+MprEvtC6wvy+Pf1Q/YZHNxK')
+  'url': 'https://psrc-81qy1r.us-west1.gcp.confluent.cloud',
+  'basic.auth.user.info': '{}:{}'.format('56G5YLCXARJWAYOB', 'Yy3pBijulMuWT5/aFNiLMba5XMUuVYk4wU5jR9o4p74vHjP+UJ+SFMCOlusmd7wd')
 })
 
 # Fetch the latest Avro schema for the value
 subject_name = 'retail_data-value'
 schema_str = schema_registry_client.get_latest_version(subject_name).schema.schema_str
+print(schema_str)
 
 # Create Avro Serializer for the value
 # key_serializer = AvroSerializer(schema_registry_client=schema_registry_client, schema_str='{"type": "string"}')
@@ -75,11 +76,13 @@ producer = SerializingProducer({
 # Load the CSV data into a pandas DataFrame
 df = pd.read_csv('retail_data.csv')
 df = df.fillna('null')
+print(df.head())
 
 # Iterate over DataFrame rows and produce to Kafka
 for index, row in df.iterrows():
     # Create a dictionary from the row values
     value = row.to_dict()
+    print(value)
     # Produce to Kafka
     producer.produce(topic='retail_data', key=str(index), value=value, on_delivery=delivery_report)
     producer.flush()
