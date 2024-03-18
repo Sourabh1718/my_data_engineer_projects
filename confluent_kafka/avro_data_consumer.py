@@ -8,12 +8,12 @@ from confluent_kafka.serialization import StringDeserializer
 
 # Define Kafka configuration
 kafka_config = {
-    'bootstrap.servers': 'pkc-41p56.asia-south1.gcp.confluent.cloud:9092',
+    'bootstrap.servers': 'pkc-lgk0v.us-west1.gcp.confluent.cloud:9092',
     'sasl.mechanisms': 'PLAIN',
     'security.protocol': 'SASL_SSL',
-    'sasl.username': 'Y35XAUWJH4K6IAB3',
-    'sasl.password': 'LY180mfR+XUbYUPyM5g93i0jPmnPh0ZZGuhv3FhtMaL2lauqQWD3utJNcQKDOvr4',
-    # 'group.id': 'mygroup',
+    'sasl.username': '47DX5QDUDUGMZW5Q',
+    'sasl.password': 'hC6L+FWDFtdgADd5uvOVMWwYtKoR+Mq/vs9urGCaiXa15BqF02DZzoSPxWT3nXJK',
+    'group.id': 'group1',
     # 'auto.offset.reset': 'earliest'
 }
 
@@ -40,7 +40,7 @@ consumer = DeserializingConsumer({
     'sasl.password': kafka_config['sasl.password'],
     'key.deserializer': key_deserializer,
     'value.deserializer': avro_deserializer,
-    # 'group.id': kafka_config['group.id'],
+    'group.id': kafka_config['group.id'],
     # 'auto.offset.reset': kafka_config['auto.offset.reset'],
     # 'enable.auto.commit': True,
     # 'auto.commit.interval.ms': 5000 # Commit every 5000 ms, i.e., every 5 seconds
